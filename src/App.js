@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+
+import React, { useState } from "react";
+import {BrowserRouter as Router , Route, Routes} from "react-router-dom";
+
+import Navbar from './Components/Navbar';
+import Profile from './Pages/Profile';
+import Signaler from './Pages/Signaler';
+import SS from './Pages/SingleSignalement';
+import FilActualite from './Pages/Filactualite';
+import LandingPage from './Pages/Landingpage'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    
+   <main className="section-container relative">
+      <Router>
+        <Navbar  className="absolute z-20 "> </Navbar>
+
+      <div className="">
+
+          <Routes>
+              <Route index path="/" element={<LandingPage/>}/>
+              <Route path="/Actualite" element={<FilActualite/>}/>
+              <Route path="/Signaler" element={<Signaler/>}/>
+              <Route path="/Profile" element={<Profile/>}/>
+              <Route path="/Actualite/:id" element={<SS/>}/> 
+          </Routes>
+      </div>
+        
+      </Router>
+    </main>
+   
+
   );
 }
 
