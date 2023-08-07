@@ -2,8 +2,8 @@ import earth from "../images/earth.png"
 const Bienvenue = () => {
     return ( 
     <div id="Home" className="flex flex-col lg:flex-row space-y-5 h-[500px] lg:h-screen w-full justify-center items-center">
-      <div>
-        <p className=" w-[80%] text-3xl">
+      <div className=" w-[80%]" >
+        <p className=" w-[100%] text-3xl">
              Bienvenu sur <b className="text-blue ">Ziali</b> <br />
              <b >Platforme </b>  de  <br />
              Signalement <b className="text-[#19A7CE] ">FIC</b>

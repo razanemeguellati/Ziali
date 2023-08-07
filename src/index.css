@@ -82,8 +82,8 @@ header div , nav {
     gap: 1.5rem;
     color: black;
     font-weight: 500;
-    background-color:rgb(175, 211, 226, 0.5) ;
-    opacity: 0.6;
+    /*background-color:rgb(175, 211, 226, 0.5) ;*/
+    background-color : white ; 
     transition: 1s;
     transform: translateY(-200vh);
   }
@@ -91,6 +91,7 @@ header div , nav {
 
   header .responsive_nav {
     transform: none;
+    border: #EE462F;
   }
 
   nav .nav-close-btn {
@@ -140,11 +141,11 @@ header div , nav {
    {
     width: 100% ;
     padding: 6px 8px ;
-    margin: 10px 0 ;
-    border: 1px solid #ddd;
+    margin: 8px 0 ;
+    border: 2px solid #8AC60F;
     box-sizing: border-box;
     display: block;
-    border-radius: 7px;
+    border-radius: 10px;
    }
 
    .single-item
@@ -199,7 +200,7 @@ header div , nav {
    content: "";
    position: absolute;
    opacity: 0.3 ;
-   background: #EE462F;
+   background: #8AC60F ;
    border-radius: inherit;
    height: 100%;
    width: 100%;
