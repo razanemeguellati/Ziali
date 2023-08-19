@@ -22,7 +22,7 @@ const Contact= () => {
     }
 
     return ( 
-    <div id="Contact" className="createform flex flex-col lg:flex-row h-screen w-full justify-center items-center ">
+    <div id="Contact" className="createform flex flex-col lg:flex-row h-[500px] lg:h-screen w-full justify-center items-center ">
        
    
        <div id="form" className="lg:order-2" >
