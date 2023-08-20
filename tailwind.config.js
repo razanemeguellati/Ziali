@@ -8,7 +8,8 @@ module.exports = {
       sm: "640px",
       md: "768px",
       lg: "1024px",
-      "2xl": "1536px",
+      "2xl": "1536px", 
+      "3xl": "1920px", 
     },
 
     colors: {
@@ -22,6 +23,7 @@ module.exports = {
       'sky': '#AFD3E2' , 
       'white': '#FFFFFF' , 
       'black': '#000000' , 
+      'heavygris': '#5E5D5D' , 
       'lightgris' : '#D9D9D9' ,
     }, 
 

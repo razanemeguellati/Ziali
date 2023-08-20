@@ -48,7 +48,7 @@ const Join = () => {
                     }}
                     className="cursor-pointer "
                     >
-                    <img src={LeftArrow} className="w-[20px] h-[20px]" alt="" />
+                    <img src={LeftArrow} className="w-[20px] h-[20px] shadow-2xl" alt="" />
                 </div>
 
       <div className="w-[60%]">
