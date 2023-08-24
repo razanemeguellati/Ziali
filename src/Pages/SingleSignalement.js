@@ -83,7 +83,7 @@ const SS = () => {
    
 
     <div id="swiper-div" className="flex flex-row justify-center items-center w-[100%] pb-14">
-             
+         
                 <div
                     onClick={() => {
                         swiperRef.current.swiper.slidePrev();
@@ -95,22 +95,22 @@ const SS = () => {
 
                 <div className="w-[70%]">
                   <Swiper
-                                      ref={swiperRef}
-                                      spaceBetween={3}
-                                      breakpoints={{
-                                          640: {
-                                          slidesPerView: 1,
-                                          },
-                                          700: {
-                                          slidesPerView: 2,
-                                          },
-                                          1024: {
-                                          slidesPerView: 3,
-                                          },
-                                      }}
-                                      >
-                                      
-                              <SwiperSlide>
+                           ref={swiperRef}
+                           spaceBetween={3}
+                           breakpoints={{
+                           640: {
+                           slidesPerView: 1,
+                           },
+                           700: {
+                           slidesPerView: 2,
+                           },
+                           1024: {
+                           slidesPerView: 3,
+                           },
+                           }}
+                            >
+                                     
+                            <SwiperSlide>
                               {({ isActive, isNext, isPrev }) => (
                                 <div
                                   className="scale-100 lg:scale-75  p-2 lg:p-1"
