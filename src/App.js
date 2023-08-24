@@ -7,7 +7,8 @@ import Profile from './Pages/Profile';
 import Signaler from './Pages/Signaler';
 import SS from './Pages/SingleSignalement';
 import FilActualite from './Pages/Filactualite';
-import LandingPage from './Pages/Landingpage'
+import LandingPage from './Pages/Landingpage' ; 
+import Modifier from "./Pages/Modifier";
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
               <Route path="/Signaler" element={<Signaler/>}/>
               <Route path="/Profile" element={<Profile/>}/>
               <Route path="/Actualite/:id" element={<SS/>}/> 
+              <Route path="/Profile/:id" element={<SS/>}/> 
+              <Route path="/Modifier" element={<Modifier/>}/> 
           </Routes>
       </div>
         

@@ -9,6 +9,8 @@ import img1 from "../images/fireman.jpeg"
 import img2 from "../images/waterman.jpg"
 import img3 from "../images/fireman2.jpeg"
 
+import {Link } from "react-router-dom"
+
 const Join = () => {
     const Pics = 
     [ {id:1 , 
@@ -35,7 +37,8 @@ const Join = () => {
                 <p className=" text-sm font-medium "> <center> dans notre mission pour sauver notre pays du désastres en un clic ! </center> </p>
                 </div>
 
-                <button className="w-[80%] h-[50px] bg-blue rounded-full text-white font-semibold  "> Signaler un problème
+                <button className="w-[80%] h-[50px] bg-blue rounded-full text-white font-semibold  ">
+                  <Link to="/Signaler"> Signaler un problème </Link> 
                 </button>
 
         </div>
