@@ -26,18 +26,19 @@ const Join = () => {
     const swiperRef = useRef(null);
 
     return (
- <div id="Joinus" className="relative  w-full flex flex-row lg:flex-col justify-center items-center h-[400px] ">
+ <div id="Joinus" className="relative  w-full h-[400px] flex flex-row lg:flex-col justify-center items-center  lg:h-[520px] ">
+  
        
-        <div className="bg-sky pt-8 flex flex-col items-center justify-cenetr space-y-10 w-[90%] h-[100%] rounded-tl-[55px] rounded-br-[55px] ">
+        <div className="bg-sky pt-8 lg:pt-16 flex flex-col items-center justify-cenetr space-y-10 w-[90%] h-[100%] lg:w-[80%]  rounded-tl-[55px] lg:rounded-tl-[180px] rounded-br-[55px] lg:rounded-br-[180px] lg:gap-6 ">
 
-        <div className="flex flex-col items-center space-y-5  lg:flex-row">
+        <div className="flex flex-col items-center space-y-5 lg:flex-row  px-auto ">
 
-                <div className="flex flex-col justify-center items-center space-y-3 px-4  ">
-                <p className="font-bold text-2xl ">  Rejoignez-Nous ! </p>
-                <p className=" text-sm font-medium "> <center> dans notre mission pour sauver notre pays du désastres en un clic ! </center> </p>
+                <div className="lg:order-2 flex flex-col justify-center items-center space-y-3 px-4  ">
+                <p className="font-bold text-2xl lg:text-4xl">  Rejoignez-Nous ! </p>
+                <p className=" text-sm font-medium lg:text-xl lg:w-[80%] "> <center> dans notre mission pour sauver notre pays du désastres en un clic ! </center> </p>
                 </div>
 
-                <button className="w-[80%] h-[50px] bg-blue rounded-full text-white font-semibold  ">
+                <button className="lg:order-1 w-[80%] h-[50px] lg:w-[350px] lg:h-[80px]   bg-blue rounded-full text-white font-semibold lg:text-2xl lg:font-medium lg:ml-24">
                   <Link to="/Signaler"> Signaler un problème </Link> 
                 </button>
 
@@ -51,13 +52,13 @@ const Join = () => {
                     }}
                     className="cursor-pointer "
                     >
-                    <img src={LeftArrow} className="w-[20px] h-[20px] shadow-2xl" alt="" />
+                    <img src={LeftArrow} className="w-[20px] h-[20px] lg:w-[40px] lg:h-[40px] shadow-2xl rounded-full " alt="" />
                 </div>
 
-      <div className="w-[60%]">
+      <div className="w-[60%] lg:w-[80%]">
          <Swiper
                             ref={swiperRef}
-                            spaceBetween={3}
+                            spaceBetween={1}
                             breakpoints={{
                                 640: {
                                 slidesPerView: 1,
@@ -71,26 +72,34 @@ const Join = () => {
                             }}
                             >
                             
-                    <SwiperSlide>
-                    {({ isActive, isNext, isPrev }) => (
+                  <SwiperSlide>
+                  
                       <div
                         className="scale-100 lg:scale-75  p-2 lg:p-1"
                       >
-                      <img  className=" rounded-lg w-[100%]" src={img1} alt="" />
+                      <img  className=" rounded-lg w-[100%] " src={img1} alt="" />
                       </div>
-                    )}
-                    
+                                        
                   </SwiperSlide>
 
                   <SwiperSlide>
-                    {({ isActive, isNext, isPrev }) => (
+                  
                       <div
                         className="scale-100 lg:scale-75  p-2 lg:p-1"
                       >
                       <img  className="w-[100%]" src={img1} alt="" />
                       </div>
-                    )}
+                  
                     
+                  </SwiperSlide>
+
+                  <SwiperSlide>
+                     <div
+                        className="scale-100 lg:scale-75 p-2 lg:p-1"
+                      >
+                      <img  className="w-[100%]" src={img1} alt="" />
+                      </div>
+                                    
                   </SwiperSlide>
                          
 
@@ -103,7 +112,7 @@ const Join = () => {
                     }}
                     className="cursor-pointer "
                     >
-                    <img src={RightArrow} className="w-[20px] h-[20px]" alt="" />
+                    <img src={RightArrow} className="w-[20px] h-[20px] lg:w-[40px] lg:h-[40px] shadow-2xl rounded-full" alt="" />
                 </div>
         </div>
        

@@ -38,7 +38,7 @@ const Contact= () => {
             type="text" 
             placeholder="Email"
             value={email}
-            className= " shadow-md "
+            className= "shadow-md lg:w-[500px] "
             onChange ={(e)=> setEmail(e.target.value)}  
             />
 
@@ -48,7 +48,7 @@ const Contact= () => {
             type="textarea" 
             placeholder="Message"
             value={message}
-            className= " shadow-md lg:h-[100px] h-[70px] "
+            className= " shadow-md h-[70px] lg:h-[150px]   "
             onChange ={(e)=> setMessage(e.target.value)}  
             />
 

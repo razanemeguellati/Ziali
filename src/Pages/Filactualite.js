@@ -71,7 +71,8 @@ const FilActualite = () => {
 <p className="text-xs opacity-50"> <center> ces résultats sont filtrés par date , du plus récent au plus ancien </center> </p>
 
 {
-   filterState ? <div id="filter_div" className="flex flex-col justify-center items-center space-y-3">
+   filterState ? 
+   <div id="filter_div" className="flex flex-col lg:flex-row justify-center items-center space-y-3">
    <div className="flex flex-row justify-center items-center space-x-3">
 
       <button
@@ -106,7 +107,7 @@ const FilActualite = () => {
 
  <section id="cards_section" className="flex justify-center items-center mt-3">
   
-    <div className="w-[100%] grid grid-cols-1 lg:grid-cols-3 gap-1">  
+    <div className="w-[100%] lg:w-[75%] grid grid-cols-1 lg:grid-cols-3 gap-1 lg:gap-4">  
         {Signalement.map((SS) =>
         /* SS stands for single singalement*/
         (<div className="mb-5" key={SS.id}>
