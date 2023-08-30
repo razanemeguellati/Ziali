@@ -1,9 +1,17 @@
 import { useState } from "react";
 import Footer from "../Components/Footer";
+import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
+import Leaflet from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import axios from "axios" ; 
+
+import Wilayas from "../Data/Wilayas.json"
+import Communes from "../Data/Communes.json"
 
 const Signaler = () => {
  
     const [inputs, setInputs] = useState({}); 
+
     
     function handleChange(event) {
     const name = event.target.name;
@@ -16,28 +24,25 @@ const Signaler = () => {
 
     }
 
+    const [currLocationJs, setCurrLocationJs] = useState({});
 
-   const willayas = [
-    {name: "Alger"},
-    {name: "Anaba"},
-    {name: "Setif"},
-    {name: "Oran"},
-    {name: "Telemsan"},
-    {name: "Jijel"},
-    {name: "Alger"},
-    {name: "Anaba"},
-    {name: "Setif"},
-    {name: "Oran"},
-    {name: "Telemsan"},
-    {name: "Jijel"} , 
-    {name: "Anaba"},
-    {name: "Setif"},
-    {name: "Oran"},
-    {name: "Telemsan"},
-    {name: "Jijel"}
-  ];
+  /* Function that fires when the user click on the : "utiliser ma position" button  */
+    function handleCurrPosition()
+    {   getLocationJs() ; 
+        alert("Your position has been taken") ; 
+    }
+
+  /* Function to get geolocation(position) of the user */
+  const getLocationJs = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position);
+      const { latitude, longitude } = position.coords;
+      setCurrLocationJs({ latitude, longitude });
+    });
+  };
+
+   
     return ( 
-    
     <div className=" mt-6 flex flex-col justify-center items-center space-y-2" >
         <h1 className=" text-2xl font-bold " > Signaler un <b className="text-blue">problème</b>  </h1>
         <p className="text-[0.75rem] text-black opacity-40"> Veuillez remplir ces champs et valider le signalement  </p>
@@ -71,12 +76,13 @@ const Signaler = () => {
      <div id="wilaya-div"  className="flex flex-row w-full  px-10 space-x-8 justify-between items-center" >
       <label For="type1" className=" text-[0.85rem] " > Wilaya:  </label>  
  
-      <input required list='wilayas' name='willaya' placeholder='Willaya' className='md:w-[140px] lg:w-[200px] w-40 h-8 p-2 border-2 border-green rounded-full text-xs' value={inputs.willaya || ""} onChange={handleChange}/>
+      <input required list='wilayas' name='willaya' placeholder='Willaya' className='md:w-[140px] lg:w-[200px] w-40 h-8 p-2 border-2 border-green rounded-full text-xs' value={inputs.willaya || ""} onChange={handleChange} />
    
    <datalist id='wilayas'>
-     {willayas.map((willaya) =>(
+     {Wilayas.map ((willaya) =>(
        <option value={willaya.name} className='w-full'/>
-     ))}
+     ))
+     }
    </datalist>
  
     </div>
@@ -85,25 +91,55 @@ const Signaler = () => {
     <div id="commune-div"  className="flex flex-row w-full px-10 space-x-8     justify-between items-center" >
       <label For="type1" className=" text-[0.85rem] " > Commune:  </label>  
  
-      <input required list='wilayas' name='willaya' placeholder='commune' className='md:w-[140px] lg:w-[200px] w-40 h-8 p-2 border-2 border-green rounded-full text-xs' value={inputs.willaya || ""} onChange={handleChange}/>
+      <input required list='Communes' name='willaya' placeholder='commune' className='md:w-[140px] lg:w-[200px] w-40 h-8 p-2 border-2 border-green rounded-full text-xs' value={inputs.Commune || ""} onChange={handleChange}/>
    
-     <datalist id='wilayas'>
-         {willayas.map((willaya) =>(
-         <option value={willaya.name} className='w-full'/>
+     <datalist id='Communes'>
+         {Communes.map((cmn) =>(
+          
+         <option value={cmn.name} className='w-full'/>
          ))}
      </datalist>
  
- 
     </div>
-     </div>
+    </div>
    
 
 
     <div id="Map-div"  className=" flex flex-col py-7 px-3 justify-center items-center" >
-        <div className="w-[90%] h-[300px] bg-green ">
-            
+        <div className="w-[90%] h-[300px] shadow-xl rounded-2xl ">
+        <MapContainer
+         className="h-full w-full rounded-2xl "
+         center={[48.8566, 2.3522]} 
+         zoom={13}>
+
+            <TileLayer
+             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+
+             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+
+            />
+        </MapContainer>
+
         </div>
         <p className="text-[0.7rem]"> cliquez sur la carte pour changer votre position </p>
+
+         <div className="flex flex-row gap-2 p-4">
+
+         <button onClick={handleCurrPosition}
+         className="h-10 px-4 text-xs text-white bg-blue rounded-full "
+         > utiliser ma position </button>
+
+        <button onClick={handleCurrPosition}
+         className="h-10 px-4 text-xs text-white bg-blue rounded-full "
+         > Choisir sur la carte </button> 
+
+         </div>
+
+        
+
+            <h1>Current Location JS</h1>
+      <p>Latitude: {currLocationJs.latitude}</p>
+      <p>Longitude: {currLocationJs.longitude}</p>
 
     </div>
 
