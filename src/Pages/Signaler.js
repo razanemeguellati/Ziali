@@ -31,7 +31,17 @@ const Signaler = () => {
     {   getLocationJs() ; 
         alert("Your position has been taken") ; 
     }
+    function handleCurrPositionMap()
+    {   getLocationJs() ; 
+        alert("Your position has been taken") ; 
+    }
 
+    const UpdateMap= () => {
+        useMapEvents({
+            click: (e) => console.log(e.latlng.lat)
+        });
+    }
+    
   /* Function to get geolocation(position) of the user */
   const getLocationJs = () => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -110,14 +120,16 @@ const Signaler = () => {
         <MapContainer
          className="h-full w-full rounded-2xl "
          center={[48.8566, 2.3522]} 
-         zoom={13}>
-
+         zoom={13}
+         >
+   
             <TileLayer
              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 
              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-
             />
+
+            <UpdateMap />
         </MapContainer>
 
         </div>
