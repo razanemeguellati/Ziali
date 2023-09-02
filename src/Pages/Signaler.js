@@ -1,18 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../Components/Footer";
-import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, useMap, useMapEvents , Marker , Popup } from 'react-leaflet';
 import Leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import axios from "axios" ; 
 
-import Wilayas from "../Data/Wilayas.json"
-import Communes from "../Data/Communes.json"
+import Wilayas from "../Data/Wilayas.json" ; 
+import Communes from "../Data/Communes.json" ; 
+import Icon from "../images/flag.png" ; 
 
 const Signaler = () => {
  
     const [inputs, setInputs] = useState({}); 
 
-    
+    /* function that sends puts in*/
     function handleChange(event) {
     const name = event.target.name;
     const value = event.target.value;
@@ -24,33 +25,60 @@ const Signaler = () => {
 
     }
 
+
     const [currLocationJs, setCurrLocationJs] = useState({});
+    const [MapCurrLocation, setMapCurrLocation] = useState({});
+    const [currLocation, setCurrLocation] = useState({});
 
-  /* Function that fires when the user click on the : "utiliser ma position" button  */
-    function handleCurrPosition()
-    {   getLocationJs() ; 
-        alert("Your position has been taken") ; 
-    }
-    function handleCurrPositionMap()
-    {   getLocationJs() ; 
-        alert("Your position has been taken") ; 
-    }
-
-    const UpdateMap= () => {
-        useMapEvents({
-            click: (e) => console.log(e.latlng.lat)
-        });
-    }
-    
-  /* Function to get geolocation(position) of the user */
+     /* Function to get geolocation(position) of the user */
   const getLocationJs = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       console.log(position);
-      const { latitude, longitude } = position.coords;
+      //const { latitude, longitude } = position.coords;
+      const latitude = position.coords.latitude ; 
+      const longitude = position.coords.longitude ; 
       setCurrLocationJs({ latitude, longitude });
+      console.log("test 1 " , currLocationJs) ; 
     });
   };
 
+  /* Function that fires when the user click on the : "utiliser ma position" button  */
+    function handleCurrPositionJs()
+    {   getLocationJs(); 
+      const latitude = currLocationJs.latitude ; 
+      const longtitude = currLocationJs.longtitude ; 
+        setCurrLocation({latitude,longtitude}) ;   
+         //console.log(" currlocation js " ,currLocationJs) ; 
+         //console.log(" currlocation " ,currLocation) ; 
+       // alert( " Votre position a été enregistrer " ) ;  
+    }
+
+ /* Function that fires when the user click on the : "choisir sur la map" button  */
+    function handleCurrPositionMap()
+    {   setCurrLocation(MapCurrLocation) ; 
+
+        alert( " la position que vouz avez choisi a été enregistrée " ) ;    
+    }
+
+   const [MarkerPosition , setMarkerPosition] = useState({}) ; 
+    /* UpdateMap : Component function to be put inside Tilelayer  */
+    const UpdateMap= () => {
+        const map = useMap();
+       
+        useMapEvents({
+            click: (e) => {  
+             const latitude  = e.latlng.lat ;
+             const longitude = e.latlng.lng ; 
+             setMapCurrLocation({ latitude, longitude}) ; 
+             setMarkerPosition([latitude, longitude]);
+          
+            } 
+            
+        });
+    }
+
+    
+  
    
     return ( 
     <div className=" mt-6 flex flex-col justify-center items-center space-y-2" >
@@ -119,45 +147,46 @@ const Signaler = () => {
         <div className="w-[90%] h-[300px] shadow-xl rounded-2xl ">
         <MapContainer
          className="h-full w-full rounded-2xl "
-         center={[48.8566, 2.3522]} 
+         center={[36.752887, 3.042048]} /* Alger city coordinates*/
          zoom={13}
-         >
-   
+         >   
             <TileLayer
              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 
              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-
             <UpdateMap />
+            <Marker position={MapCurrLocation}>
+
+            </Marker>
         </MapContainer>
 
         </div>
-        <p className="text-[0.7rem]"> cliquez sur la carte pour changer votre position </p>
+        <div className="flex flex-row gap-2 p-4">
 
-         <div className="flex flex-row gap-2 p-4">
-
-         <button onClick={handleCurrPosition}
+         <button onClick={handleCurrPositionJs}
          className="h-10 px-4 text-xs text-white bg-blue rounded-full "
          > utiliser ma position </button>
 
-        <button onClick={handleCurrPosition}
+        <button onClick={handleCurrPositionMap}
          className="h-10 px-4 text-xs text-white bg-blue rounded-full "
          > Choisir sur la carte </button> 
 
          </div>
 
-        
+        <div className="w-[90%] p-4 border-2 border-green rounded-xl">
+            <h1 className="font-semibold ">Coordonnées : </h1>
+            <p>Latitude: {currLocation.latitude}</p>
+            <p>Longitude: {currLocation.longitude}</p>
+        </div>
 
-            <h1>Current Location JS</h1>
-      <p>Latitude: {currLocationJs.latitude}</p>
-      <p>Longitude: {currLocationJs.longitude}</p>
+      
 
     </div>
 
     <div>
     <div id="commentaire-div" className=" flex flex-col w-full  px-7 justify-center items-left space-y-2">
-        <label For="commentaire"> Ajouter un commentaire : </label>
+        <label For="commentaire" className="px-2"> Ajouter un commentaire : </label>
         <textarea name="commentaire" id="" cols="30" rows="5" 
         className = " border-2 border-green rounded-2xl p-4" ></textarea>
     </div>
