@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import Footer from "../Components/Footer";
 import { MapContainer, TileLayer, useMap, useMapEvents , Marker , Popup } from 'react-leaflet';
 import Leaflet from 'leaflet';
+import {Icon} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import axios from "axios" ; 
-
 import Wilayas from "../Data/Wilayas.json" ; 
 import Communes from "../Data/Communes.json" ; 
-import Icon from "../images/flag.png" ; 
+import flagicon from "../images/flag.png" ; 
 
 const Signaler = () => {
  
@@ -25,42 +25,47 @@ const Signaler = () => {
 
     }
 
-
     const [currLocationJs, setCurrLocationJs] = useState({});
     const [MapCurrLocation, setMapCurrLocation] = useState({});
-    const [currLocation, setCurrLocation] = useState({});
+    const [currLocation, setCurrLocation] = useState({ latitude: 36.752887, longtitude: 3.042048 });
 
-     /* Function to get geolocation(position) of the user */
-  const getLocationJs = () => {
+ /* Function to get geolocation(position) of the user */
+    const getLocationJs = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       console.log(position);
-      //const { latitude, longitude } = position.coords;
       const latitude = position.coords.latitude ; 
       const longitude = position.coords.longitude ; 
       setCurrLocationJs({ latitude, longitude });
-      console.log("test 1 " , currLocationJs) ; 
+    
     });
   };
-
+  
   /* Function that fires when the user click on the : "utiliser ma position" button  */
     function handleCurrPositionJs()
     {   getLocationJs(); 
-      const latitude = currLocationJs.latitude ; 
-      const longtitude = currLocationJs.longtitude ; 
-        setCurrLocation({latitude,longtitude}) ;   
-         //console.log(" currlocation js " ,currLocationJs) ; 
-         //console.log(" currlocation " ,currLocation) ; 
-       // alert( " Votre position a été enregistrer " ) ;  
+        const latitude = currLocationJs.latitude ; 
+        const longtitude = currLocationJs.longtitude ; 
+        setCurrLocation({latitude : latitude , longtitude: longtitude}) ;   
+        alert( " Votre position a été enregistrer " ) ;  
     }
+  
+    useEffect(()=>{ setCurrLocation(currLocationJs) ; } , [currLocationJs])
 
- /* Function that fires when the user click on the : "choisir sur la map" button  */
+
+   /* Function that fires when the user click on the : "choisir sur la map" button  */
     function handleCurrPositionMap()
     {   setCurrLocation(MapCurrLocation) ; 
-
         alert( " la position que vouz avez choisi a été enregistrée " ) ;    
     }
+        
+    const customIcon = new Icon({
+      iconUrl: require("../images/wrong.png"),
+      className : " shadow-3xl rounded-full " ,
+      iconSize: [38, 38] // size of the icon
+    });
 
-   const [MarkerPosition , setMarkerPosition] = useState({}) ; 
+   const [MarkerClicked , setMarkerClicked] = useState(false) ; 
+
     /* UpdateMap : Component function to be put inside Tilelayer  */
     const UpdateMap= () => {
         const map = useMap();
@@ -70,7 +75,7 @@ const Signaler = () => {
              const latitude  = e.latlng.lat ;
              const longitude = e.latlng.lng ; 
              setMapCurrLocation({ latitude, longitude}) ; 
-             setMarkerPosition([latitude, longitude]);
+             setMarkerClicked(true);
           
             } 
             
@@ -85,6 +90,7 @@ const Signaler = () => {
         <h1 className=" text-2xl font-bold " > Signaler un <b className="text-blue">problème</b>  </h1>
         <p className="text-[0.75rem] text-black opacity-40"> Veuillez remplir ces champs et valider le signalement  </p>
 
+<button onClick={()=>{alert(" here's curr" , currLocation.latitude ) ; }}> test</button>
     <form action={handlesubmit} className="w-full flex flex-col space-y-3 py-5">
     <div id="nature-div" className="flex flex-row w-full pl-10 space-x-4 justify-left " >  
          <p className="text-[0.85rem]"> Nature du problème : </p>
@@ -105,10 +111,7 @@ const Signaler = () => {
                 
              </div>       
          </div>
-             
- 
-             
-     </div>
+      </div>
  
      <div className="flex flex-col gap-3">
      <div id="wilaya-div"  className="flex flex-row w-full  px-10 space-x-8 justify-between items-center" >
@@ -144,25 +147,26 @@ const Signaler = () => {
 
 
     <div id="Map-div"  className=" flex flex-col py-7 px-3 justify-center items-center" >
-        <div className="w-[90%] h-[300px] shadow-xl rounded-2xl ">
-        <MapContainer
-         className="h-full w-full rounded-2xl "
+        <div className=" w-[90%] h-[300px] shadow-xl rounded-2xl ">
+
+     <MapContainer
+
+         className=" h-full w-full rounded-2xl "
          center={[36.752887, 3.042048]} /* Alger city coordinates*/
          zoom={13}
          >   
-            <TileLayer
-             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+         <TileLayer
+         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+         />
 
-             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <UpdateMap />
-            <Marker position={MapCurrLocation}>
+        <UpdateMap />
+         <Marker position={[currLocation.latitude , currLocation.longtitude]} icon={customIcon} ></Marker> 
 
-            </Marker>
-        </MapContainer>
+     </MapContainer>
 
         </div>
-        <div className="flex flex-row gap-2 p-4">
+        <div className="flex flex-row gap-2 px-4 py-7 ">
 
          <button onClick={handleCurrPositionJs}
          className="h-10 px-4 text-xs text-white bg-blue rounded-full "
@@ -195,11 +199,11 @@ const Signaler = () => {
 
         <input type='submit' id='submit' className='w-0 h-0'/>
         
-        <label for="submit" className='submit-button py-2 px-9 w-fit flex justify-center items-center gap-2 cursor-pointer hover:scale-110 bg-green rounded-full text-black font-semibold shadow-xl shadow-lightgris' >
+        <label for="submit" className='submit-button py-2 px-14 w-fit flex justify-center items-center gap-2 cursor-pointer hover:scale-110 bg-green rounded-full text-black font-semibold shadow-xl shadow-lightgris' >
          <span>Valider</span>
         </label>
 
-        <button className=" py-2 px-8 w-fit flex justify-center items-center gap-2 cursor-pointer hover:scale-110 bg-red rounded-full text-black font-semibold shadow-xl shadow-lightgris"> Annuler </button>
+        <button className=" py-2 px-12 w-fit flex justify-center items-center gap-2 cursor-pointer hover:scale-110 bg-red rounded-full text-black font-semibold shadow-xl shadow-lightgris"> Annuler </button>
            
      </div>
 </div>
