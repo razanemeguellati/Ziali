@@ -25,8 +25,8 @@ const Signaler = () => {
 
     }
 
-    const [currLocationJs, setCurrLocationJs] = useState({});
-    const [MapCurrLocation, setMapCurrLocation] = useState({});
+    const [currLocationJs, setCurrLocationJs] = useState({ latitude: 36.752887, longtitude: 3.042048 });
+    const [MapCurrLocation, setMapCurrLocation] = useState({ latitude: 36.752887, longtitude: 3.042048 });
     const [currLocation, setCurrLocation] = useState({ latitude: 36.752887, longtitude: 3.042048 });
 
  /* Function to get geolocation(position) of the user */
@@ -34,8 +34,8 @@ const Signaler = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       console.log(position);
       const latitude = position.coords.latitude ; 
-      const longitude = position.coords.longitude ; 
-      setCurrLocationJs({ latitude, longitude });
+      const longtitude = position.coords.longitude ; 
+      setCurrLocationJs({latitude : latitude , longtitude: longtitude});
     
     });
   };
@@ -50,7 +50,8 @@ const Signaler = () => {
     }
   
     useEffect(()=>{ setCurrLocation(currLocationJs) ; } , [currLocationJs])
-
+    useEffect(()=>{console.log(" Js ", currLocationJs)} , [currLocationJs])
+    useEffect(()=>{console.log(" Loc", currLocation)} , [currLocation])
 
    /* Function that fires when the user click on the : "choisir sur la map" button  */
     function handleCurrPositionMap()
@@ -73,24 +74,21 @@ const Signaler = () => {
         useMapEvents({
             click: (e) => {  
              const latitude  = e.latlng.lat ;
-             const longitude = e.latlng.lng ; 
-             setMapCurrLocation({ latitude, longitude}) ; 
+             const longtitude = e.latlng.lng ; 
              setMarkerClicked(true);
-          
+             setMapCurrLocation({latitude : latitude , longtitude: longtitude}) ; 
+           
             } 
             
         });
     }
 
-    
-  
-   
+       
     return ( 
     <div className=" mt-6 flex flex-col justify-center items-center space-y-2" >
         <h1 className=" text-2xl font-bold " > Signaler un <b className="text-blue">problème</b>  </h1>
         <p className="text-[0.75rem] text-black opacity-40"> Veuillez remplir ces champs et valider le signalement  </p>
 
-<button onClick={()=>{alert(" here's curr" , currLocation.latitude ) ; }}> test</button>
     <form action={handlesubmit} className="w-full flex flex-col space-y-3 py-5">
     <div id="nature-div" className="flex flex-row w-full pl-10 space-x-4 justify-left " >  
          <p className="text-[0.85rem]"> Nature du problème : </p>
@@ -152,7 +150,7 @@ const Signaler = () => {
      <MapContainer
 
          className=" h-full w-full rounded-2xl "
-         center={[36.752887, 3.042048]} /* Alger city coordinates*/
+         center={[currLocation.latitude , currLocation.longtitude]}
          zoom={13}
          >   
          <TileLayer
@@ -161,7 +159,8 @@ const Signaler = () => {
          />
 
         <UpdateMap />
-         <Marker position={[currLocation.latitude , currLocation.longtitude]} icon={customIcon} ></Marker> 
+        { MarkerClicked &&  <Marker position={[currLocation.latitude , currLocation.longtitude]} icon={customIcon} ></Marker>}
+       
 
      </MapContainer>
 
@@ -181,7 +180,7 @@ const Signaler = () => {
         <div className="w-[90%] p-4 border-2 border-green rounded-xl">
             <h1 className="font-semibold ">Coordonnées : </h1>
             <p>Latitude: {currLocation.latitude}</p>
-            <p>Longitude: {currLocation.longitude}</p>
+            <p>Longitude: {currLocation.longtitude}</p>
         </div>
 
       
@@ -191,7 +190,7 @@ const Signaler = () => {
     <div>
     <div id="commentaire-div" className=" flex flex-col w-full  px-7 justify-center items-left space-y-2">
         <label For="commentaire" className="px-2"> Ajouter un commentaire : </label>
-        <textarea name="commentaire" id="" cols="30" rows="5" 
+        <textarea name="commentaire" id="" cols="30" rows="2" 
         className = " border-2 border-green rounded-2xl p-4" ></textarea>
     </div>
 
