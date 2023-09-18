@@ -4,16 +4,15 @@ function Scard (props) {
 const SS = props.SS 
 
   return ( 
-    <div className="relative">
-      <div className="absolute flex justify-center items-center right-1 bottom-20  w-14 h-14 bg-red rounded-full bg-opacity-10 z-1">
+    <div className="relative cards ">
+      <div className="absolute flex justify-center items-center right-10 lg:right-20 bottom-20  w-14 h-14 bg-red rounded-full bg-opacity-10 z-1">
       <div className="relative  flex justify-center items-center w-10 h-10 bg-red rounded-full bg-opacity-25 z-12">
       <div className="relative w-6 h-6 bg-red rounded-full z-12">
-      
       </div>
       </div>
       </div>
 
-    <div className=" hover:scale-105 hover:shadow-xl hover:shadow-lightgris m-2 flex flex-row border-sky border-[0.2rem] shadow-sm h-[110px] w-[310px] rounded-2xl py-2 px-5 space-x-5 items-center justify-left">
+    <div className=" m-2 flex flex-row border-sky border-[0.2rem] shadow-sm h-[110px] w-[310px] rounded-2xl py-2 px-5 space-x-5 items-center justify-left hover:shadow-xl hover:shadow-lightgris">
     
     <img className="w-[80px] h-[75px] rounded-lg " src={img} alt="image"/>
      <div className="flex flex-col ">

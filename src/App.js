@@ -19,7 +19,7 @@ function App() {
 
         <Navbar  className="absolute z-20 "> </Navbar>
 
-      <div className=" pt-20">
+      <div className=" pt-24 lg:pt-16"> 
 
           <Routes>
               <Route index path="/" element={<LandingPage/>}/>

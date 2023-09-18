@@ -16,8 +16,8 @@ const Navbar = () => {
 <div className='relative w-full '>
             <header className='absolute z-12  w-full  '>
     <div>
-    <img className='lg:w-[100px] w-[55px] h-[55px] lg:h-[100px] ml-0' src={logo} alt="" />
-    <h1> Ziali </h1>
+    <img className='lg:w-[90px] lg:h-[90px] lg:my-2 w-[55px] h-[55px] ' src={logo} alt="" />
+    <h1 className='logofont lg:text-3xl font-bold text-blue'> Ziali </h1>
     </div>
 
   <nav ref={navRef}  className=' Btns px-5 mx-[10px] ml-auto mr-auto  '>
