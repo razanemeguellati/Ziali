@@ -85,15 +85,15 @@ const Signaler = () => {
 
        
     return ( 
-    <div className=" mt-6 flex flex-col justify-center items-center space-y-2" >
+    <div className=" mt-6  lg:mt-10 flex flex-col justify-center items-center space-y-2" >
         <h1 className=" text-2xl font-bold " > Signaler un <b className="text-blue">problème</b>  </h1>
         <p className="text-[0.75rem] text-black opacity-40"> Veuillez remplir ces champs et valider le signalement  </p>
 
-    <form action={handlesubmit} className="w-full flex flex-col space-y-3 py-5">
-    <div id="nature-div" className="flex flex-row w-full pl-10 space-x-4 justify-left " >  
+    <form action={handlesubmit} className="w-full flex flex-col space-y-3 pt-5 pb-10  lg:px-5">
+      <div id="nature-div" className="flex flex-row w-full pl-10 space-x-4 justify-left " >  
          <p className="text-[0.85rem]"> Nature du problème : </p>
-         <div className="flex flex-col ">
-             <div>
+         <div className="flex flex-col lg:flex-row lg:justify-evenly w-[60%] ">
+             <div className="flex flex-row items-center justify-center">
                  <input required type="radio" name="type" value="Fuite eau" id="type1"  />
                  <label For="type1" className="text-blue text-[0.8rem] " > Fuite d'eau </label>  
              </div>
@@ -111,8 +111,8 @@ const Signaler = () => {
          </div>
       </div>
  
-     <div className="flex flex-col gap-3">
-     <div id="wilaya-div"  className="flex flex-row w-full  px-10 space-x-8 justify-between items-center" >
+     <div className="flex flex-col lg:flex-row gap-3 w-[50%]  ">
+     <div id="wilaya-div"  className="flex flex-row w-full  px-10 space-x-8 justify-between items-center lg:justify-start" >
       <label For="type1" className=" text-[0.85rem] " > Wilaya:  </label>  
  
       <input required list='wilayas' name='willaya' placeholder='Willaya' className='md:w-[140px] lg:w-[200px] w-40 h-8 p-2 border-2 border-green rounded-full text-xs' value={inputs.willaya || ""} onChange={handleChange} />
@@ -127,7 +127,7 @@ const Signaler = () => {
     </div>
  
       
-    <div id="commune-div"  className="flex flex-row w-full px-10 space-x-8     justify-between items-center" >
+    <div id="commune-div"  className="flex flex-row w-full px-10 space-x-8  justify-between items-center lg:justify-start" >
       <label For="type1" className=" text-[0.85rem] " > Commune:  </label>  
  
       <input required list='Communes' name='willaya' placeholder='commune' className='md:w-[140px] lg:w-[200px] w-40 h-8 p-2 border-2 border-green rounded-full text-xs' value={inputs.Commune || ""} onChange={handleChange}/>
@@ -140,12 +140,12 @@ const Signaler = () => {
      </datalist>
  
     </div>
-    </div>
+     </div>
    
 
-
-    <div id="Map-div"  className=" flex flex-col py-7 px-3 justify-center items-center" >
-        <div className=" w-[90%] h-[300px] shadow-xl rounded-2xl ">
+<div className="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-start pt-5 lg:gap-20 w-full">
+<div id="Map-div"  className="lg:order-2 flex flex-col  px-3 justify-center items-center lg:w-[55%]" >
+        <div className=" w-[90%] lg:w-[100%] h-[300px] shadow-xl rounded-2xl ">
 
      <MapContainer
 
@@ -177,27 +177,27 @@ const Signaler = () => {
 
          </div>
 
-        <div className="w-[90%] p-4 border-2 border-green rounded-xl">
-            <h1 className="font-semibold ">Coordonnées : </h1>
-            <p>Latitude: {currLocation.latitude}</p>
-            <p>Longitude: {currLocation.longtitude}</p>
-        </div>
-
+     
       
 
     </div>
 
-    <div>
-    <div id="commentaire-div" className=" flex flex-col w-full  px-7 justify-center items-left space-y-2">
+    <div className=" flex flex-col items-center lg:space-y-6 space-y-5  ">
+        <div className="w-[80%] p-4 border-2 border-green rounded-xl lg:border-none ">
+            <h1 className="font-semibold ">Vos Coordonnées : </h1>
+            <p >Latitude: {currLocation.latitude}</p>
+            <p>Longitude: {currLocation.longtitude}</p>
+        </div>
+
+    <div id="commentaire-div" className="w-full flex flex-col w-  px-7 justify-center items-left space-y-2">
         <label For="commentaire" className="px-2"> Ajouter un commentaire : </label>
-        <textarea name="commentaire" id="" cols="30" rows="2" 
-        className = " border-2 border-green rounded-2xl p-4" ></textarea>
+        <textarea name="commentaire " id="" cols="30" rows="2" 
+        className = "border-2 border-green rounded-2xl p-4 lg:p-5 lg:w-full lg:h-40" ></textarea>
     </div>
 
-    <div className='flex flex-col space-y-4 lg:flex-row w-full items-center justify-center '>
+    <div className='flex flex-col space-y-4 lg:space-x-5 lg:flex-row w-full items-center justify-center '>
 
         <input type='submit' id='submit' className='w-0 h-0'/>
-        
         <label for="submit" className='submit-button py-2 px-14 w-fit flex justify-center items-center gap-2 cursor-pointer hover:scale-110 bg-green rounded-full text-black font-semibold shadow-xl shadow-lightgris' >
          <span>Valider</span>
         </label>
@@ -205,7 +205,9 @@ const Signaler = () => {
         <button className=" py-2 px-12 w-fit flex justify-center items-center gap-2 cursor-pointer hover:scale-110 bg-red rounded-full text-black font-semibold shadow-xl shadow-lightgris"> Annuler </button>
            
      </div>
+    </div>
 </div>
+   
   
     </form>
    
