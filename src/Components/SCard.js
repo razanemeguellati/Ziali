@@ -19,7 +19,7 @@ const SS = props.SS
        <h1 className="text-sm"> Type</h1>
        <p className=" text-black text-[11px] opacity-50 ">
         
-       Wilaya : {SS.wilaya}
+       Wilaya : {SS.designation}
        <br />
        commune : {SS.commune}
        <br />

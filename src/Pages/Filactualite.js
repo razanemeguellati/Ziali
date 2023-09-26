@@ -1,6 +1,8 @@
 
 
-import { useState } from "react";
+
+import axios from 'axios';
+import { useState, useEffect } from "react";
 import SCard from "../Components/SCard";
 import { Link } from 'react-router-dom' ;  
 import Wilayas from "../Data/Wilayas.json" ; 
@@ -43,9 +45,31 @@ const FilActualite = () => {
     const[research,setResearch]= useState("") ;
     const [filterState , setfilterState]= useState(false) ;
 
-    const handleFilter = ()=>
+    const handleFilterb = ()=>
     {   setfilterState(!filterState)  
-       }
+     }
+     const handleFilter = ()=>
+     {   setfilterState(!filterState)  
+      }
+
+
+      const [data, setData] = useState([]);
+
+      useEffect(() => {
+         const apiUrl = 'http://localhost:8000/api/getData';
+         axios.get(apiUrl)
+          
+              .then((response) => {
+               console.log("hiii") ; 
+           
+                  setData(response.data);
+              })
+              .catch((error) => {
+                  console.error('Error fetching data:', error);
+              });
+      }, []);
+  
+  
 
     return ( 
     
@@ -66,7 +90,7 @@ const FilActualite = () => {
 
       
        <button
-       onClick={handleFilter}
+       onClick={handleFilterb}
        className="btn3 bg-green text-xs shadow-lightgris shadow-md px-4 h-[40px] font-semibold rounded-full"> filtrer </button>
 
 </div>
@@ -93,7 +117,7 @@ const FilActualite = () => {
 
    <div className="flex flex-row justify-center items-center space-x-3"> 
      
-      <input required list='Communes' name='willaya' placeholder='commune' className='md:w-[140px] lg:w-32 w-28 h-[30px] p-2 border-2 border-green rounded-[10px] text-xs'  onChange={handleFilter}/>
+      <input required list='Communes' name='willaya' placeholder='commune' className='md:w-[140px] lg:w-32 w-32 h-[30px] p-2 border-2 border-green rounded-[10px] text-xs'  onChange={handleFilter}/>
    
       <datalist id='Communes'>
          {Communes.map((cmn) =>(
@@ -101,7 +125,7 @@ const FilActualite = () => {
          ))}
       </datalist>
 
-      <input required list='wilayas' name='willaya' placeholder='Willaya' className='md:w-[140px] lg:w-32 w-28 h-[30px] p-2 border-2 border-green rounded-[10px] text-xs' />
+      <input required list='wilayas' name='willaya' placeholder='Willaya' className='md:w-[140px] lg:w-32 w-32 h-[30px] p-2 border-2 border-green rounded-[10px] text-xs' />
          
       <datalist id='wilayas'>
       {Wilayas.map ((willaya) =>(
@@ -122,7 +146,17 @@ const FilActualite = () => {
  <section id="cards_section" className="flex justify-center items-center mt-6 w-[100%]">
   
     <div className="w-[100%] lg:w-[75%] grid grid-cols-1 lg:grid-cols-2 gap-1 lg:gap-5">  
-        {Signalement.map((SS) =>
+       
+       
+        {data.map((wilaya) => {
+          //<li key={wilaya.id}>{wilaya.designation}</li>
+          console.log(wilaya.id) ; 
+         })}
+     
+
+    
+
+        {data.map((SS) =>
         /* SS stands for single singalement*/
         (<div className="mb-5" key={SS.id}>
             <Link to={`/Actualite/${SS.id}`}>

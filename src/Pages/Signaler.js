@@ -168,11 +168,11 @@ const Signaler = () => {
         <div className="flex flex-row gap-2 px-4 py-7 ">
 
          <button onClick={handleCurrPositionJs}
-         className="h-10 px-4 text-xs text-white bg-blue rounded-full "
+         className=" btn3 h-10 px-4 text-xs text-white bg-blue rounded-full "
          > utiliser ma position </button>
 
         <button onClick={handleCurrPositionMap}
-         className="h-10 px-4 text-xs text-white bg-blue rounded-full "
+         className=" btn3 h-10 px-4 text-xs text-white bg-blue rounded-full "
          > Choisir sur la carte </button> 
 
          </div>
@@ -197,12 +197,12 @@ const Signaler = () => {
 
     <div className='flex flex-col space-y-4 lg:space-x-5 lg:flex-row w-full items-center justify-center '>
 
-        <input type='submit' id='submit' className='w-0 h-0'/>
-        <label for="submit" className='submit-button py-2 px-14 w-fit flex justify-center items-center gap-2 cursor-pointer hover:scale-110 bg-green rounded-full text-black font-semibold shadow-xl shadow-lightgris' >
+        <input type='submit' id='submit' className='cards w-0 h-0'/>
+        <label for="submit" className='submit-button cards py-2 px-14 w-fit flex justify-center items-center gap-2 cursor-pointer hover:scale-110 bg-green rounded-full text-black font-semibold shadow-xl shadow-lightgris' >
          <span>Valider</span>
         </label>
 
-        <button className=" py-2 px-12 w-fit flex justify-center items-center gap-2 cursor-pointer hover:scale-110 bg-red rounded-full text-black font-semibold shadow-xl shadow-lightgris"> Annuler </button>
+        <button className="cards py-2 px-12 w-fit flex justify-center items-center gap-2 cursor-pointer hover:scale-110 bg-red rounded-full text-black font-semibold shadow-xl shadow-lightgris"> Annuler </button>
            
      </div>
     </div>

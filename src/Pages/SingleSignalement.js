@@ -78,7 +78,7 @@ const SS = () => {
 
 
     <div className="flex flex-row items-left jsutify-left w-[80%] ">
-        <h1 className="p-0 "> Photos : </h1> 
+        <h1 className="p-0 "> Photos :  </h1> 
     </div>
    
 
