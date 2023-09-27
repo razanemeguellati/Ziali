@@ -56,7 +56,7 @@ const FilActualite = () => {
       const [data, setData] = useState([]);
 
       useEffect(() => {
-         const apiUrl = 'http://localhost:8000/api/getData';
+         const apiUrl = 'http://localhost:8000/api/getSignalements';
          axios.get(apiUrl)
           
               .then((response) => {
@@ -69,7 +69,7 @@ const FilActualite = () => {
               });
       }, []);
   
-  
+      
 
     return ( 
     
@@ -159,6 +159,7 @@ const FilActualite = () => {
         {data.map((SS) =>
         /* SS stands for single singalement*/
         (<div className="mb-5" key={SS.id}>
+           
             <Link to={`/Actualite/${SS.id}`}>
                <SCard SS={SS}> </SCard>               
             </Link>
