@@ -5,15 +5,21 @@ import RightArrow from '../images/right.png' ;
 import LeftArrow from '../images/left.png' ; 
 import { useEffect, useRef, useState } from "react"; 
 import { useParams } from "react-router-dom";
+import {Icon} from 'leaflet';
 
 import img1 from "../images/fireman.jpeg"
 import img2 from "../images/waterman.jpg"
 import img3 from "../images/fireman2.jpeg"
 
-
 import Footer from "../Components/Footer"
 
+import { MapContainer, TileLayer, useMap, useMapEvents , Marker , Popup } from 'react-leaflet';
+
+
 const SS = () => {
+
+  const [currLocation, setCurrLocation] = useState({ latitude: 36.752887, longtitude: 3.042048 });
+
     const Pics = 
     [ {id:1 , 
       pic:img1} , 
@@ -28,6 +34,11 @@ const SS = () => {
     
     const {id}= useParams() ;
     const [Signalement,setSignalement] = useState({});
+    const customIcon = new Icon({
+      iconUrl: require("../images/wrong.png"),
+      className : " shadow-3xl rounded-full " ,
+      iconSize: [38, 38] // size of the icon
+    });
 
     useEffect(() => {
       fetch(`http://127.0.0.1:8000/api/getSignalement/${id}`)
@@ -46,44 +57,58 @@ const SS = () => {
     <h1 className="text-3xl font-bold lg:p-6"> <b className="text-blue"> Fil</b>  d’Actualité </h1>
 
     <div className="lg:w-full lg:flex lg:flex-row lg:px-16 lg:py-2 justify-start item-center" >
-        <section className="w-full flex flex-col space-y-2 items-left py-2 px-8 lg:w-[45%] ">
+        <section className="w-full flex flex-col space-y-2 items-left py-2 px-8 lg:w-[45%]  ">
             <div className="flex flex-row space-x-3">
-            <p className="text-black text-sm font-semibold "> Nature du problème : </p>
+            <p className="text-black text-sm font-semibold lg:text-lg "> Nature du problème : </p>
             <div className="flex flex-row items-center justify-center  space-x-3">
                     <div className=" h-2 w-2 rounded-full bg-red "></div>
-                   <p className="text-black text-xs opacity-75"> {Signalement.nature} </p> 
+                   <p className="text-black text-xs opacity-75 lg:text-[0.9rem]"> {Signalement.nature} </p> 
             </div>
             </div>
 
             <div className="flex flex-row space-x-3">
-            <p className="text-black text-sm font-semibold"> Etat : </p>
+            <p className="text-black text-sm font-semibold lg:text-lg"> Etat : </p>
             <div className="flex flex-row items-center justify-center  space-x-3">
                     <div className=" h-2 w-2 rounded-full bg-green "></div>
-                   <p className="text-black text-xs opacity-75"> {"Rétabli"} </p> 
+                   <p className="text-black text-xs opacity-75 lg:text-[0.9rem]"> {"Rétabli"} </p> 
             </div>
             </div>
 
             <div className="flex flex-row space-x-3">
-                  <p className="text-black text-sm font-semibold"> Wilaya : </p>
-                  <p className="text-black text-xs  opacity-75"> {Signalement.wilaya} </p> 
+                  <p className="text-black text-sm font-semibold lg:text-lg"> Wilaya : </p>
+                  <p className="text-black text-xs  opacity-75 lg:text-[0.9rem]"> {Signalement.wilaya} </p> 
             </div>
 
             <div className="flex flex-row space-x-3">
-                  <p className="text-black text-sm font-semibold"> Commune : </p>
-                  <p className="text-black text-xs opacity-75"> {Signalement.commune} </p> 
+                  <p className="text-black text-sm font-semibold lg:text-lg"> Commune : </p>
+                  <p className="text-black text-xs opacity-75 lg:text-[0.9rem]"> {Signalement.commune} </p> 
             </div>
 
             <div className="flex flex-col space-y-2 items-left">
-                  <p className="text-black text-sm font-semibold"> Commentaire : </p>
-                  <p className="text-black text-xs opacity-75"> {Signalement.description} </p> 
+                  <p className="text-black text-sm font-semibold lg:text-lg"> Commentaire : </p>
+                  <p className="text-black text-xs opacity-75 lg:text-[0.9rem]"> {Signalement.description} </p> 
             </div>
 
          </section>
 
          <section id='map-section' className="flex flex-row justify-center items-center py-8 lg:py-2 lg:w-[55%] ">
-                <div className="w-[80%] lg:w-[90%] h-64 bg-green rounded-lg  shadow-2xl ">
+                <div className="w-[80%] lg:w-[90%] h-64 lg:h-72 bg-green rounded-2xl shadow-2xl ">
+                
+                <MapContainer
 
-                </div>
+            className=" h-full w-full rounded-2xl "
+            center={[currLocation.latitude , currLocation.longtitude]}
+            zoom={13}
+            >   
+            <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+
+
+            <Marker position={[currLocation.latitude , currLocation.longtitude]} icon={customIcon}> </Marker>
+           </MapContainer>
+         </div>
          </section>
 
     </div>
@@ -102,7 +127,7 @@ const SS = () => {
                     }}
                     className="cursor-pointer "
                     >
-                    <img src={LeftArrow} className="w-[25px] h-[25px] shadow-xl shadow-heavygris rounded-full   " alt="" />
+                    <img src={LeftArrow} className="w-[25px] h-[25px] shadow-xl shadow-heavygris rounded-full" alt="" />
                 </div>
 
                 <div className="w-[70%]">

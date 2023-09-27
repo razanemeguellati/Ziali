@@ -153,9 +153,6 @@ const FilActualite = () => {
           console.log(wilaya.id) ; 
          })}
      
-
-    
-
         {data.map((SS) =>
         /* SS stands for single singalement*/
         (<div className="mb-5" key={SS.id}>
