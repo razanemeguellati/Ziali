@@ -52,17 +52,17 @@ const FilActualite = () => {
      {   setfilterState(!filterState)  
       }
 
-
-      const [data, setData] = useState([]);
-
+      const [Signalements, setSignalements] = useState([]);
+      const [filteredSignalements , setfilteredSignalements] = useState([]) ;  
+      
+      /* Function to fetch all of signalements  */
       useEffect(() => {
          const apiUrl = 'http://localhost:8000/api/getSignalements';
          axios.get(apiUrl)
           
               .then((response) => {
-               console.log("hiii") ; 
-           
-                  setData(response.data);
+               setSignalements(response.data);
+               setfilteredSignalements(response.data) ; 
               })
               .catch((error) => {
                   console.error('Error fetching data:', error);
@@ -147,20 +147,12 @@ const FilActualite = () => {
   
     <div className="w-[100%] lg:w-[75%] grid grid-cols-1 lg:grid-cols-2 gap-1 lg:gap-5">  
        
-       
-        {data.map((wilaya) => {
-          //<li key={wilaya.id}>{wilaya.designation}</li>
-          console.log(wilaya.id) ; 
-         })}
-     
-        {data.map((SS) =>
+      {filteredSignalements.map((SS) =>
         /* SS stands for single singalement*/
-        (<div className="mb-5" key={SS.id}>
-           
+        (<div className="mb-5" key={SS.id}>  
             <Link to={`/Actualite/${SS.id}`}>
                <SCard SS={SS}> </SCard>               
             </Link>
-
         </div>
         ))}
     </div>

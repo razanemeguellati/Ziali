@@ -40,9 +40,10 @@ const SS = () => {
 
   const { id } = useParams();
   const [Signalement, setSignalement] = useState({});
+
   const customIcon = new Icon({
     iconUrl: require("../images/wrong.png"),
-    className: " shadow-3xl rounded-full ",
+    className: "shadow-3xl rounded-full",
     iconSize: [38, 38], // size of the icon
   });
 
@@ -53,6 +54,7 @@ const SS = () => {
       })
       .then((data) => {
         setSignalement(data);
+        setCurrLocation({latitude: data.latitude ,longtitude:data.longitude})
       })
       .catch((err) => console.log(err));
   }, []);
@@ -67,54 +69,47 @@ const SS = () => {
       </h1>
 
       <div className="lg:w-full lg:flex lg:flex-row lg:px-16 lg:py-2 justify-start item-center">
-        <section className="w-full flex flex-col space-y-2 items-left py-2 px-8 lg:w-[45%]  ">
+        <section className="w-full flex flex-col space-y-2 items-left py-2 pr-8 lg:px-8 lg:w-[45%]  ">
           <div className="flex flex-row space-x-3">
             <p className="text-black text-sm font-semibold lg:text-lg ">
-              {" "}
-              Nature du problème :{" "}
+              
+              Nature du problème :
             </p>
             <div className="flex flex-row items-center justify-center  space-x-3">
               <div className=" h-2 w-2 rounded-full bg-red "></div>
               <p className="text-black text-xs opacity-75 lg:text-[0.9rem]">
-                {" "}
-                {Signalement.nature}{" "}
+                  {Signalement.nature}
               </p>
             </div>
           </div>
 
           <div className="flex flex-row space-x-3">
             <p className="text-black text-sm font-semibold lg:text-lg">
-              {" "}
-              Etat :{" "}
+               Etat :
             </p>
             <div className="flex flex-row items-center justify-center  space-x-3">
               <div className=" h-2 w-2 rounded-full bg-green "></div>
               <p className="text-black text-xs opacity-75 lg:text-[0.9rem]">
-                {" "}
-                {"Rétabli"}{" "}
+                {"Rétabli"}
               </p>
             </div>
           </div>
 
-          <div className="flex flex-row space-x-3">
+          <div className="flex flex-row justify-start items-center  space-x-3">
             <p className="text-black text-sm font-semibold lg:text-lg">
-              {" "}
-              Wilaya :{" "}
+               Wilaya :
             </p>
             <p className="text-black text-xs  opacity-75 lg:text-[0.9rem]">
-              {" "}
-              {Signalement.wilaya}{" "}
+              {Signalement.wilaya}
             </p>
           </div>
 
-          <div className="flex flex-row space-x-3">
+          <div className="flex flex-row justify-start items-center space-x-3">
             <p className="text-black text-sm font-semibold lg:text-lg">
-              {" "}
-              Commune :{" "}
+               Commune :
             </p>
             <p className="text-black text-xs opacity-75 lg:text-[0.9rem]">
-              {" "}
-              {Signalement.commune}{" "}
+              {Signalement.commune}
             </p>
           </div>
 
@@ -134,7 +129,7 @@ const SS = () => {
           id="map-section"
           className="flex flex-row justify-center items-center py-8 lg:py-2 lg:w-[55%] "
         >
-          <div className="w-[80%] lg:w-[90%] h-64 lg:h-72 bg-green rounded-2xl shadow-xl  ">
+          <div className="w-[95%] lg:w-[90%] h-64 lg:h-72 bg-green rounded-2xl shadow-xl  ">
             <MapContainer
               className=" h-full w-full rounded-2xl  "
               center={[currLocation.latitude, currLocation.longtitude]}
