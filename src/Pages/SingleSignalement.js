@@ -13,6 +13,9 @@ import img3 from "../images/fireman2.jpeg";
 
 import Footer from "../Components/Footer";
 
+import Wilayas from "../Data/Wilayas.json" ; 
+import Communes from "../Data/Communes.json" ; 
+
 import {
   MapContainer,
   TileLayer,
@@ -23,10 +26,8 @@ import {
 } from "react-leaflet";
 
 const SS = () => {
-  const [currLocation, setCurrLocation] = useState({
-    latitude: 36.752887,
-    longtitude: 3.042048,
-  });
+
+  
 
   const Pics = [
     { id: 1, pic: img1 },
@@ -40,6 +41,7 @@ const SS = () => {
 
   const { id } = useParams();
   const [Signalement, setSignalement] = useState({});
+  const [currLocation, setCurrLocation] = useState(null);
 
   const customIcon = new Icon({
     iconUrl: require("../images/wrong.png"),
@@ -47,6 +49,8 @@ const SS = () => {
     iconSize: [38, 38], // size of the icon
   });
 
+
+  // fetching the infos of the id in the params
   useEffect(() => {
     fetch(`http://127.0.0.1:8000/api/getSignalement/${id}`)
       .then((res) => {
@@ -59,7 +63,7 @@ const SS = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  // fetching the infos of the id in the params
+ 
 
   return (
     <section className=" mt-4 flex flex-col justify-center items-center space-y-2 ">
@@ -99,28 +103,50 @@ const SS = () => {
             <p className="text-black text-sm font-semibold lg:text-lg">
                Wilaya :
             </p>
-            <p className="text-black text-xs  opacity-75 lg:text-[0.9rem]">
-              {Signalement.wilaya}
-            </p>
+          
+           
+         {
+            Wilayas.map((wil) => {
+            if (wil.id === Signalement.wilaya) {
+            return (
+              <p key={wil.id} className="text-black text-xs opacity-75 lg:text-[0.9rem]">
+                {wil.name}
+              </p>
+
+            );
+            }
+            return null; // If there's no match, you can return null or an empty fragment
+          })}
+
           </div>
 
           <div className="flex flex-row justify-start items-center space-x-3">
             <p className="text-black text-sm font-semibold lg:text-lg">
                Commune :
             </p>
-            <p className="text-black text-xs opacity-75 lg:text-[0.9rem]">
-              {Signalement.commune}
-            </p>
+           
+            {
+            Communes.map((comm) => {
+            if (comm.post_code === Signalement.commune) {
+            return (
+              <p key={comm.id} className="text-black text-xs opacity-75 lg:text-[0.9rem]">
+                {comm.name}
+              </p>
+            );
+            }
+            return null; // If there's no match, you can return null or an empty fragment
+             })}
+
           </div>
 
           <div className="flex flex-col space-y-2 items-left">
             <p className="text-black text-sm font-semibold lg:text-lg">
-              {" "}
-              Commentaire :{" "}
+           
+              Commentaire :
             </p>
             <p className="text-black text-xs opacity-75 lg:text-[0.9rem]">
-              {" "}
-              {Signalement.description}{" "}
+           
+              {Signalement.description}
             </p>
           </div>
         </section>
@@ -130,6 +156,7 @@ const SS = () => {
           className="flex flex-row justify-center items-center py-8 lg:py-2 lg:w-[55%] "
         >
           <div className="w-[95%] lg:w-[90%] h-64 lg:h-72 bg-green rounded-2xl shadow-xl  ">
+          { currLocation ? 
             <MapContainer
               className=" h-full w-full rounded-2xl  "
               center={[currLocation.latitude, currLocation.longtitude]}
@@ -146,7 +173,9 @@ const SS = () => {
               >
                 {" "}
               </Marker>
-            </MapContainer>
+            </MapContainer> : 
+            <></>
+          }  
           </div>
         </section>
       </div>

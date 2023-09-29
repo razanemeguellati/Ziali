@@ -78,8 +78,7 @@ const Signaler = () => {
              setMarkerClicked(true);
              setMapCurrLocation({latitude : latitude , longtitude: longtitude}) ; 
            
-            } 
-            
+            }       
         });
     }
 
