@@ -12,13 +12,13 @@ const Navbar = () => {
     };
   
     return (
-<div className='sticky z-10 w-full top-0 '>
-<div className='relative w-full '>
-            <header className='absolute z-12  w-full  '>
-    <div>
-    <img className='lg:w-[90px] lg:h-[90px] lg:my-2 w-[55px] h-[55px] ' src={logo} alt="" />
-    <h1 className='logofont lg:text-3xl font-bold text-blue'> Ziali </h1>
-    </div>
+    <div className='sticky z-50 w-full top-0 '>
+    <div className='relative z-20 w-full '>
+    <header className='w-full '>
+     <div>
+        <img className='lg:w-[90px] lg:h-[90px] lg:my-2 w-[55px] h-[55px] ' src={logo} alt="" />
+        <h1 className='logofont lg:text-3xl font-bold text-blue'> Ziali </h1>
+     </div>
 
   <nav ref={navRef}  className=' Btns px-5 mx-[10px] ml-auto mr-auto  '>
   <a className=' relative p-[10px] ml-[20px] ' href="/#Home"> Acceuil </a> 

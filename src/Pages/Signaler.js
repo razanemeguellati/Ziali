@@ -145,7 +145,7 @@ const Signaler = () => {
 
 <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-start pt-5 lg:gap-20 w-full">
 <div id="Map-div"  className="lg:order-2 flex flex-col  px-3 justify-center items-center lg:w-[55%]" >
-        <div className=" w-[90%] lg:w-[100%] h-[300px] shadow-xl rounded-2xl ">
+        <div className="asbolute z-10 w-[90%] lg:w-[100%] h-[300px] shadow-xl rounded-2xl ">
 
      <MapContainer
 
