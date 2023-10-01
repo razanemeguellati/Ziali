@@ -90,19 +90,19 @@ const Signaler = () => {
 
     <form action={handlesubmit} className="w-full flex flex-col space-y-3 pt-5 pb-10  lg:px-5">
       <div id="nature-div" className="flex flex-row w-full pl-10 space-x-4 justify-left " >  
-         <p className="text-[0.85rem]"> Nature du problème : </p>
-         <div className="flex flex-col lg:flex-row lg:justify-evenly w-[60%] ">
-             <div className="flex flex-row items-center justify-center">
+         <p className="text-[0.8rem]"> Nature du problème : </p>
+         <div className="flex flex-col lg:flex-row lg:justify-around w-[60%] ">
+             <div className="flex flex-row items-center justify-left space-x-2">
                  <input required type="radio" name="type" value="Fuite eau" id="type1"  />
                  <label For="type1" className="text-blue text-[0.8rem] " > Fuite d'eau </label>  
              </div>
  
-             <div>
+             <div className="flex flex-row items-center justify-left space-x-2">
                <input required type="radio" name="type" value="Incendie" id="type2"  />
                <label For="type2" className="text-red text-[0.8rem] "> Incendie </label>
              </div> 
  
-             <div>
+             <div className="flex flex-row items-center justify-left space-x-2">
              <input required type="radio" name="type" value="Autre problème" id="type3"  />
              <label For="type3" className="text-green text-[0.8rem] "> Autre problème </label>
                 
@@ -188,7 +188,7 @@ const Signaler = () => {
             <p>Longitude: {currLocation.longtitude}</p>
         </div>
 
-    <div id="commentaire-div" className="w-full flex flex-col w-  px-7 justify-center items-left space-y-2">
+    <div id="commentaire-div" className="w-full flex flex-col w-  px-7 justify-center items-left space-y-1">
         <label For="commentaire" className="px-2"> Ajouter un commentaire : </label>
         <textarea name="commentaire " id="" cols="30" rows="2" 
         className = "border-2 border-green rounded-2xl p-4 lg:p-5 lg:w-full lg:h-40" ></textarea>

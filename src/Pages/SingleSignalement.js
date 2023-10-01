@@ -155,7 +155,7 @@ const SS = () => {
           id="map-section"
           className="flex flex-row justify-center items-center py-8 lg:py-2 lg:w-[55%] "
         >
-          <div className="w-[95%] lg:w-[90%] h-64 lg:h-72 bg-green rounded-2xl shadow-xl  ">
+          <div className="asbolute z-10 w-[95%] lg:w-[90%] h-64 lg:h-72 bg-green rounded-2xl shadow-xl  ">
           { currLocation ? 
             <MapContainer
               className=" h-full w-full rounded-2xl  "
