@@ -10,32 +10,68 @@ import Communes from "../Data/Communes.json" ;
 import flagicon from "../images/flag.png" ; 
 
 const Signaler = () => {
+  /* Needed states */
+    const[nature , setNature] = useState('') ; 
+    const[wilaya , setWilaya] = useState('') ; 
+    const[commune, setCommune] = useState('') ; 
+    const[description, setDescription] = useState('') ; 
+    const[owner, setOwner] = useState('kl_meguellati@esi.dz') ; 
+    const[latitude, setLatitude] = useState(36.752887) ; 
+    const[longitude, setLongitude] = useState(3.042048) ;
+    const[photo, setPhoto] = useState('photo') ;
+    const[localisation, setlocalisation] = useState('fthis') ;
+    const[location, setLocation] = useState('fthiiis') ;
  
-    const [inputs, setInputs] = useState({}); 
+    useEffect(()=>{ setLatitude(currLocation.latitude); 
+    setLongitude(currLocation.longtitude); } , [])
+    /* POST Request Function */
+    const handleSubmit = (event) => { 
+      event.preventDefault();
+     
+     // Wilayas.map( (w) => { if(wilaya===w.name){setWilaya(w.code)} }) ; 
+      console.log("is this here appearing") ; 
+      const probleme = { nature , wilaya , commune, description , owner , latitude, longitude, photo , localisation, location };    
 
-    /* function that sends puts in*/
-    function handleChange(event) {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs(values => ({ ...values, [name]: value }));
-    }
+      const requestOptions = {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(probleme)
+      } 
 
-    function handlesubmit()
-    {
+      console.log("Is this even firing") ; 
+      console.log("Are these undefined" , probleme) ; 
+  
+      fetch('http://127.0.0.1:8000/api/saveSignalement', requestOptions)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP Error! Status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log('Response data:', data);
+        // You can add further handling here if needed
+      })
+      .catch((err) => {
+        console.error('Fetch error:', err);
+        // Handle the error and possibly provide feedback to the user
+      });
+  };
+  
 
-    }
-
+   /* Geolocation states */ 
     const [currLocationJs, setCurrLocationJs] = useState({ latitude: 36.752887, longtitude: 3.042048 });
     const [MapCurrLocation, setMapCurrLocation] = useState({ latitude: 36.752887, longtitude: 3.042048 });
     const [currLocation, setCurrLocation] = useState({ latitude: 36.752887, longtitude: 3.042048 });
 
- /* Function to get geolocation(position) of the user */
+   /* Function to get geolocation(position) of the user */
     const getLocationJs = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       console.log(position);
       const latitude = position.coords.latitude ; 
       const longtitude = position.coords.longitude ; 
       setCurrLocationJs({latitude : latitude , longtitude: longtitude});
+      
     
     });
   };
@@ -49,9 +85,9 @@ const Signaler = () => {
         alert( " Votre position a été enregistrer " ) ;  
     }
   
-    useEffect(()=>{ setCurrLocation(currLocationJs) ; } , [currLocationJs])
-    useEffect(()=>{console.log(" Js ", currLocationJs)} , [currLocationJs])
-    useEffect(()=>{console.log(" Loc", currLocation)} , [currLocation])
+   // useEffect(()=>{ setCurrLocation(currLocationJs) ; } , [currLocationJs])
+   // useEffect(()=>{console.log(" Js ", currLocationJs)} , [currLocationJs])
+   // useEffect(()=>{console.log(" Loc", currLocation)} , [currLocation])
 
    /* Function that fires when the user click on the : "choisir sur la map" button  */
     function handleCurrPositionMap()
@@ -84,70 +120,72 @@ const Signaler = () => {
 
        
     return ( 
-    <div className=" mt-6  lg:mt-10 flex flex-col justify-center items-center space-y-2" >
+    <div className=" mt-6 lg:mt-0 flex flex-col justify-center items-center space-y-2 " >
         <h1 className=" text-2xl font-bold " > Signaler un <b className="text-blue">problème</b>  </h1>
         <p className="text-[0.75rem] text-black opacity-40"> Veuillez remplir ces champs et valider le signalement  </p>
 
-    <form action={handlesubmit} className="w-full flex flex-col space-y-3 pt-5 pb-10  lg:px-5">
+    <form action={handleSubmit} method="POST" className="w-full flex flex-col justify-center items-start space-y-3 pt-5 pb-10 lg:ml-14">
       <div id="nature-div" className="flex flex-row w-full pl-10 space-x-4 justify-left " >  
-         <p className="text-[0.8rem]"> Nature du problème : </p>
+         <p className="text-[0.8rem] lg:text-[1rem]"> Nature du problème : </p>
          <div className="flex flex-col lg:flex-row lg:justify-around w-[60%] ">
              <div className="flex flex-row items-center justify-left space-x-2">
-                 <input required type="radio" name="type" value="Fuite eau" id="type1"  />
-                 <label For="type1" className="text-blue text-[0.8rem] " > Fuite d'eau </label>  
+                 <input required type="radio" name="nature" value="Fuite d'eau" id="type1" onChange ={(e)=> setNature(e.target.value)}  />
+                 <label For="type1" className="text-blue text-[0.8rem] lg:text-[1rem]" > Fuite d'eau </label>  
              </div>
  
              <div className="flex flex-row items-center justify-left space-x-2">
-               <input required type="radio" name="type" value="Incendie" id="type2"  />
-               <label For="type2" className="text-red text-[0.8rem] "> Incendie </label>
+               <input required type="radio" name="nature" value="Incendie" id="type2" onChange ={(e)=> setNature(e.target.value)}   />
+               <label For="type2" className="text-red text-[0.8rem] lg:text-[1rem]"> Incendie </label>
              </div> 
  
              <div className="flex flex-row items-center justify-left space-x-2">
-             <input required type="radio" name="type" value="Autre problème" id="type3"  />
-             <label For="type3" className="text-green text-[0.8rem] "> Autre problème </label>
-                
+             <input required type="radio" name="nature" value="Autre problème" id="type3" onChange ={(e)=> setNature(e.target.value)}   />
+             <label For="type3" className="text-green text-[0.8rem] lg:text-[1rem]"> Autre problème </label>
              </div>       
          </div>
       </div>
  
-     <div className="flex flex-col lg:flex-row gap-3 w-[50%]  ">
-     <div id="wilaya-div"  className="flex flex-row w-full  px-10 space-x-8 justify-between items-center lg:justify-start" >
-      <label For="type1" className=" text-[0.85rem] " > Wilaya:  </label>  
+     <div className="flex flex-col lg:flex-row gap-3 w-[50%] ">
+     <div id="wilaya-div" className="flex flex-row w-full  px-10 space-x-8 justify-between items-center lg:justify-start">
+
+      <label For="type1" className=" text-[0.85rem] lg:text-[1rem]"> Wilaya: {wilaya} </label>  
  
-      <input required list='wilayas' name='willaya' placeholder='Willaya' className='md:w-[140px] lg:w-[200px] w-40 h-8 p-2 border-2 border-green rounded-full text-xs' value={inputs.willaya || ""} onChange={handleChange} />
+      <input required list='wilayas' name='wilaya' placeholder='Wilaya' className='md:w-[140px] lg:w-[200px] w-40 h-8 p-2 border-2 border-green rounded-full text-xs' value={wilaya} 
+      onChange ={(e)=> setWilaya(e.target.value)}
+      />
    
-   <datalist id='wilayas'>
-     {Wilayas.map ((willaya) =>(
-       <option value={willaya.name} className='w-full'/>
-     ))
-     }
+     <datalist id='wilayas'>
+     {Wilayas.map ((w) => {
+       return (
+        <option value={w.name } className='w-full'/>
+
+     )})}
+
    </datalist>
  
     </div>
  
       
     <div id="commune-div"  className="flex flex-row w-full px-10 space-x-8  justify-between items-center lg:justify-start" >
-      <label For="type1" className=" text-[0.85rem] " > Commune:  </label>  
+      <label For="type1" className="text-[0.85rem] lg:text-[1rem]" > Commune:  </label>  
  
-      <input required list='Communes' name='willaya' placeholder='commune' className='md:w-[140px] lg:w-[200px] w-40 h-8 p-2 border-2 border-green rounded-full text-xs' value={inputs.Commune || ""} onChange={handleChange}/>
+      <input required list='Communes' name='commune' placeholder='commune' className='md:w-[140px] lg:w-[200px] w-40 h-8 p-2 border-2 border-green rounded-full text-xs' value={commune}  onChange ={(e)=> setCommune(e.target.value)}  />
    
      <datalist id='Communes'>
          {Communes.map((cmn) =>(
-          
-         <option value={cmn.name} className='w-full'/>
+          <option value={cmn.name} className='w-full'/>
          ))}
      </datalist>
  
     </div>
-     </div>
+  </div>
    
 
 <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-start pt-5 lg:gap-20 w-full">
 <div id="Map-div"  className="lg:order-2 flex flex-col  px-3 justify-center items-center lg:w-[55%]" >
-        <div className="asbolute z-10 w-[90%] lg:w-[100%] h-[300px] shadow-xl rounded-2xl ">
+        <div className="asbolute z-10 w-[90%] lg:w-[100%] h-[300px] lg:h-[400px] shadow-xl rounded-2xl ">
 
      <MapContainer
-
          className=" h-full w-full rounded-2xl "
          center={[currLocation.latitude , currLocation.longtitude]}
          zoom={13}
@@ -156,11 +194,8 @@ const Signaler = () => {
          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
          />
-
         <UpdateMap />
         { MarkerClicked &&  <Marker position={[currLocation.latitude , currLocation.longtitude]} icon={customIcon} ></Marker>}
-       
-
      </MapContainer>
 
         </div>
@@ -181,18 +216,22 @@ const Signaler = () => {
 
     </div>
 
-    <div className=" flex flex-col items-center lg:space-y-6 space-y-5  ">
+    <div className=" flex flex-col items-center lg:space-y-3 space-y-5  ">
         <div className="w-[80%] p-4 border-2 border-green rounded-xl lg:border-none ">
-            <h1 className="font-semibold ">Vos Coordonnées : </h1>
-            <p >Latitude: {currLocation.latitude}</p>
-            <p>Longitude: {currLocation.longtitude}</p>
+            <h1 className="font-semibold "> Vos Coordonnées : </h1>
+            <p> Latitude: {currLocation.latitude}</p>
+            <p> Longitude: {currLocation.longtitude}</p>
         </div>
 
-    <div id="commentaire-div" className="w-full flex flex-col w-  px-7 justify-center items-left space-y-1">
-        <label For="commentaire" className="px-2"> Ajouter un commentaire : </label>
-        <textarea name="commentaire " id="" cols="30" rows="2" 
-        className = "border-2 border-green rounded-2xl p-4 lg:p-5 lg:w-full lg:h-40" ></textarea>
-    </div>
+      <div id="Photos-div" className="w-full flex flex-col px-7 justify-center items-left space-y-1">
+      <p className="px-2"> Ajouter des photos : </p>
+      </div>
+
+      <div id="commentaire-div" className="w-full flex flex-col px-7 justify-center items-left space-y-1">
+          <label For="commentaire" className="px-2"> Ajouter un commentaire : </label>
+          <textarea required name="commentaire " id="" cols="30" rows="2" onChange={(e)=> setDescription(e.target.value)}  
+          className = "border-2 border-green rounded-2xl p-4 lg:p-5 lg:w-full lg:h-40" ></textarea>
+      </div>
 
     <div className='flex flex-col space-y-4 lg:space-x-5 lg:flex-row w-full items-center justify-center '>
 
@@ -210,10 +249,6 @@ const Signaler = () => {
   
     </form>
    
-    
-    
-   
-
    
    <Footer></Footer>
     </div> 

@@ -16,10 +16,11 @@ function App() {
     
    <main className="section-container relative">
       <Router>
+       
 
         <Navbar  className="absolute z-20 "> </Navbar>
 
-      <div className=" pt-24 lg:pt-16"> 
+      <div className=" pt-5 lg:pt-7"> 
 
           <Routes>
               <Route index path="/" element={<LandingPage/>}/>
@@ -29,7 +30,7 @@ function App() {
               <Route path="/Actualite/:id" element={<SS/>}/> 
               <Route path="/Profile/:id" element={<SS/>}/> 
               <Route path="/Modifier" element={<Modifier/>}/> 
-              <Route path="/Login" element={<Login/>}/> 
+              <Route path="/Login" element={<Login/>}/>
           </Routes>
       </div>
         

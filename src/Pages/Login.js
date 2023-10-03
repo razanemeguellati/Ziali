@@ -6,27 +6,29 @@ import { useState } from "react";
 
 const Login = () => {
    const [user , setUser]= useState(null)
-    return ( 
+   
+   return ( 
     <div className="flex flex-col lg:flex-row">
-        <div className=" border-2 border-blue flex flex-col justify-center items-center  h-[40%]  lg:w-[20%] lg:h-screen">
-            <img src={ziali} className="w-[150px]" alt="ziali logo" />
-             <h1 className="text-xl font-bold text-blue"> Creer un compte</h1>
-        </div>
+        <div className="border-blue flex flex-col justify-center items-center h-[40%] lg:w-[30%] lg:h-screen">
+            <img src={ziali} className="w-[360px]" alt="ziali logo" />
+             <h1 className="text-xl font-bold text-gris"> <center >  Etes-vous prêt à  <b className="text-blue"> nous aider ? </b></center> </h1>
+            
+        </div> 
+      
+         <div className="border-blue">
 
+          <h1> Créer un compte  </h1>
+          <LoginSocialGoogle
+            client_id={"261765265732-tmi5camf60l8s89ooub0sit7se8pin9o.apps.googleusercontent.com"}
+            scope="openid profile email"
+            discoveryDocs="claims_supported"
+            access_type="online"
+            onResolve={({ provider, data }) => {
+            console.log(data);
+            setUser(data) ;
 
-        <div>
-
-        <LoginSocialGoogle
-        client_id={"261765265732-tmi5camf60l8s89ooub0sit7se8pin9o.apps.googleusercontent.com"}
-        scope="openid profile email"
-        discoveryDocs="claims_supported"
-        access_type="online"
-        onResolve={({ provider, data }) => {
-          console.log(data);
-          setUser(data) ;
-
-        }}
-        onReject={(err) => {
+          }}
+          onReject={(err) => {
           console.log(err);
         }}
       >

@@ -73,7 +73,7 @@ const FilActualite = () => {
 
     return ( 
     
-    <div className="w-[100%] m-3 lg:pt-10">
+    <div className="w-[100%] m-3 lg:mt-0">
 
          <section className="flex flex-col justify-center items-center space-y-2">
             <h1 className="text-3xl font-bold"> <b className="text-blue">Fil</b>  d’Actualité </h1>
@@ -145,7 +145,7 @@ const FilActualite = () => {
 
  <section id="cards_section" className="flex justify-center items-center mt-6 w-[100%]">
   
-    <div className="w-[100%] lg:w-[75%] grid grid-cols-1 lg:grid-cols-2 gap-1 lg:gap-5">  
+    <div className="w-[100%] lg:w-[75%] grid grid-cols-1 lg:grid-cols-3 gap-1 lg:gap-5">  
        
       {filteredSignalements.map((SS) =>
         /* SS stands for single singalement*/
