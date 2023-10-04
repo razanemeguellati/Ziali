@@ -58,9 +58,12 @@ const FilActualite = () => {
       /* Function to fetch all of signalements  */
       useEffect(() => {
          const apiUrl = 'http://localhost:8000/api/getSignalements';
+        // console.log("request") ; 
          axios.get(apiUrl)
           
               .then((response) => {
+              // console.log("end") ; 
+
                setSignalements(response.data);
                setfilteredSignalements(response.data) ; 
               })
